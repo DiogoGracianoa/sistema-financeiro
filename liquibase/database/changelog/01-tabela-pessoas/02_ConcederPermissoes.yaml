@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 02 - Concessão de permissões de tabelas e sequences após criação.
+      author: diogo.graciano
+      changes:
+        - sql:
+            comment: Conceder ao role api_sistema_financeiro acesso total à tabela pessoas
+            sql: GRANT ALL PRIVILEGES ON TABLE pessoas TO api_sistema_financeiro;
+
+        - sql:
+            comment: Conceder ao role api_sistema_financeiro acesso total a todas as sequences no schema public
+            sql: GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO api_sistema_financeiro;

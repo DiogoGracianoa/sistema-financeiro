@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 04 - Concessao de permissoes de tabelas e sequences apos criacao
+      author: diogo.graciano
+      changes:
+        - sql:
+            comment: Conceder ao role api_sistema_financeiro acesso total a todas as tabelas existentes
+            splitStatements: false
+            sql: >
+              GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO api_sistema_financeiro;
+
+        - sql:
+            comment: Conceder ao role api_sistema_financeiro acesso total a todas as sequences existentes
+            splitStatements: false
+            sql: >
+              GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO api_sistema_financeiro;

@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  liquibase:
+    image: 170423417913.dkr.ecr.us-east-1.amazonaws.com/liquibase:3.6.3-postgres
+    command: liquibase --url="${DATABASE_URL}" --username=${DB_USER_NAME} --password="${DB_PASSWORD}" update
+    volumes:
+      - ./changelog:/var/changelog

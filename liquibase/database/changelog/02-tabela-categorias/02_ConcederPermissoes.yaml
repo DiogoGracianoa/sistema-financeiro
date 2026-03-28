@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 02 - Concessao de permissoes para categorias
+      author: diogo.graciano
+      changes:
+        - sql:
+            comment: Conceder ao role api_sistema_financeiro acesso total a tabela categorias
+            sql: GRANT ALL PRIVILEGES ON TABLE categorias TO api_sistema_financeiro;
+
+        - sql:
+            comment: Conceder ao role api_sistema_financeiro acesso total a todas as sequences no schema public
+            sql: GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO api_sistema_financeiro;
