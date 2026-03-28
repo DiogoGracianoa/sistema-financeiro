@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  liquibase-sistema-financeiro:
+    image: 170423417913.dkr.ecr.us-east-1.amazonaws.com/liquibase:3.6.3-postgres
+    container_name: liquibase-sistema-financeiro
+    depends_on:
+      - postgres-sistema-financeiro
+    restart: on-failure
+    command: >
+      bash -c "liquibase --url="jdbc:postgresql://postgres-sistema-financeiro:5432/sistema_financeiro_local" --changeLogFile=/var/changelog/master.yaml --username=postgres --password="postgres2026!" update"
+    volumes:
+      - ./database/changelog:/var/changelog
+    links:
+      - postgres-sistema-financeiro
+    networks:
+      - sistema-financeiro-local-network
+
+  postgres-sistema-financeiro:
+    image: postgres:12.15
+    container_name: postgres-sistema-financeiro
+    environment:
+      POSTGRES_PASSWORD: "postgres2026!"
+      POSTGRES_DB: "sistema_financeiro_local"
+    ports:
+      - "54320:5432"
+    networks:
+      - sistema-financeiro-local-network
+
+networks:
+  sistema-financeiro-local-network:
+    driver: bridge

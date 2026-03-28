@@ -1,0 +1,48 @@
+﻿databaseChangeLog:
+  - changeSet:
+      id: 01 - Criacao da tabela de pessoas
+      author: diogo.graciano
+      changes:
+        - createTable:
+            tableName: pessoas
+            remarks: Tabela de pessoas do sistema.
+            columns:
+              - column:
+                  name: id
+                  type: serial4
+                  autoIncrement: true
+                  remarks: Chave primária da tabela de pessoas
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pessoas_pk
+
+              - column:
+                  name: nome
+                  type: varchar(200)
+                  remarks: Nome completo da pessoa
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: idade
+                  type: integer
+                  remarks: Idade da pessoa
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: ativo
+                  type: boolean
+                  remarks: Indica se o cadastro da pessoa está ativo
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: data_criacao
+                  type: timestamptz
+                  remarks: Data de criação da pessoa
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false

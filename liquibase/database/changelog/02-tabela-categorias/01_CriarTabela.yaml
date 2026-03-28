@@ -1,0 +1,40 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01 - Criacao da tabela de categorias
+      author: diogo.graciano
+      changes:
+        - createTable:
+            tableName: categorias
+            remarks: Tabela de categorias de transacoes.
+            columns:
+              - column:
+                  name: id
+                  type: serial4
+                  autoIncrement: true
+                  remarks: Chave primaria da tabela de categorias
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: categorias_pk
+
+              - column:
+                  name: descricao
+                  type: varchar(400)
+                  remarks: Descricao da categoria
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: id_finalidade
+                  type: integer
+                  remarks: Finalidade da categoria (1-Despesa, 2-Receita, 3-Ambas)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: data_criacao
+                  type: timestamptz
+                  remarks: Data de criacao do registro
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false

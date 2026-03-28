@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - include:
+      file: /var/changelog/00-modelo-inicial/01_CriarRole.yaml
+  - include:
+      file: /var/changelog/00-modelo-inicial/02_ConcederPermissoesParaTabelas.yaml
+  - include:
+      file: /var/changelog/00-modelo-inicial/03_ConcederPermissoesParaSequences.yaml
+  - include:
+      file: /var/changelog/00-modelo-inicial/04_ConcederPermissoes.yaml
+  - include:
+      file: /var/changelog/01-tabela-pessoas/01_CriarTabela.yaml
+  - include:
+      file: /var/changelog/01-tabela-pessoas/02_ConcederPermissoes.yaml
+  - include:
+      file: /var/changelog/02-tabela-categorias/01_CriarTabela.yaml
+  - include:
+      file: /var/changelog/02-tabela-categorias/02_ConcederPermissoes.yaml
+  - include:
+      file: /var/changelog/03-tabela-transacoes/01_CriarTabela.yaml
+  - include:
+      file: /var/changelog/03-tabela-transacoes/02_ConcederPermissoes.yaml

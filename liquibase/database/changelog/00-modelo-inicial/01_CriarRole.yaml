@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01 - Criacao da role api_sistema_financeiro
+      author: diogo.graciano
+      context: local
+      preConditions:
+        onFail: MARK_RAN
+        sqlCheck:
+          expectedResult: 0
+          sql: SELECT count(1) FROM pg_catalog.pg_roles WHERE rolname = 'api_sistema_financeiro'
+      changes:
+        - sql:
+            comment: Criar role api_sistema_financeiro
+            splitStatements: false
+            sql: >
+              CREATE ROLE api_sistema_financeiro
+              WITH SUPERUSER CREATEDB CREATEROLE LOGIN ENCRYPTED PASSWORD 'postgres2026!';
