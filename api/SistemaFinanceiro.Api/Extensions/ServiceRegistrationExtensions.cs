@@ -15,6 +15,7 @@ public static class ServiceRegistrationExtensions
         services.AddScoped<IPessoasService, PessoasService>();
         services.AddScoped<ICategoriasService, CategoriasService>();
         services.AddScoped<ITransacoesService, TransacoesService>();
+        services.AddScoped<IRelatoriosService, RelatoriosService>();
 
         // Repositories
         services.AddScoped<IPessoasRepository, PessoasRepository>();
