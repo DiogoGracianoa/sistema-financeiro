@@ -25,6 +25,7 @@ public class CategoriasController : ControllerBase
     /// <returns>Lista de categorias.</returns>
     [HttpGet]
     [ProducesResponseType(typeof(BaseResponse<List<CategoriaResponse>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<BaseResponse<List<CategoriaResponse>>>> ObterTodasCategorias()
     {
         var categorias = await _categoriasService.ObterCategoriasAsync();
@@ -52,6 +53,7 @@ public class CategoriasController : ControllerBase
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(BaseResponse<CategoriaResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<BaseResponse<CategoriaResponse>>> CriarCategoria([FromBody] CategoriaRequest categoriaRequest)
     {
         var categoriaCriada = await _categoriasService.CriarCategoriaAsync(categoriaRequest);

@@ -25,6 +25,24 @@ public class CategoriasRepository(ILogger<CategoriasRepository> logger, IConfigu
         return categorias.AsList();
     }
 
+    public async Task<CategoriaEntity?> ObterPorIdAsync(int id)
+    {
+        const string sql = @"
+            SELECT
+                id as Id,
+                descricao as Descricao,
+                id_finalidade as IdFinalidade,
+                data_criacao as DataCriacao
+            FROM categorias
+            WHERE id = @Id;";
+
+        using IDbConnection connection = Connection;
+
+        var categoria = await connection.QuerySingleOrDefaultAsync<CategoriaEntity>(sql, new { Id = id });
+
+        return categoria;
+    }
+
     public async Task<CategoriaEntity> AdicionarAsync(CategoriaEntity categoria)
     {
         const string sql = @"

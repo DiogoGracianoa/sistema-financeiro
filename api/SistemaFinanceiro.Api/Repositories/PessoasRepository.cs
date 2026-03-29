@@ -27,6 +27,26 @@ public class PessoasRepository(ILogger<PessoasRepository> logger, IConfiguration
         return pessoas.AsList();
     }
 
+    public async Task<PessoaEntity?> ObterPorIdAsync(int id)
+    {
+        const string sql = @"
+            SELECT
+                id as Id,
+                idade as Idade,
+                nome as Nome,
+                ativo as Ativo,
+                data_criacao as DataCriacao
+            FROM pessoas
+            WHERE id = @Id
+              AND ativo = true;";
+
+        using IDbConnection connection = Connection;
+
+        var pessoa = await connection.QuerySingleOrDefaultAsync<PessoaEntity>(sql, new { Id = id });
+
+        return pessoa;
+    }
+
     public async Task<PessoaEntity> AdicionarAsync(PessoaEntity pessoa)
     {
         const string sql = @"
