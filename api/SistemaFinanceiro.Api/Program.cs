@@ -4,6 +4,8 @@ using SistemaFinanceiro.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AdicionarPoliticiaDeCors();
+
 builder.AdicionarCultureBrasileira();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -12,6 +14,7 @@ builder.Services.RegistrarDependencias(builder.Configuration);
 
 var app = builder.Build();
 
+app.UsarPoliticasDeCors();
 app.UseMiddleware<ExceptionMiddleware>();
 
 if (app.Environment.IsDevelopment())
