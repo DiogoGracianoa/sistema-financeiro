@@ -9,12 +9,14 @@ namespace SistemaFinanceiro.Api.Tests.Services;
 public class PessoasServiceTests
 {
     private readonly IPessoasRepository _pessoasRepository;
+    private readonly ITransacoesRepository _transacoesRepository;
     private readonly PessoasService _pessoasService;
 
     public PessoasServiceTests()
     {
         _pessoasRepository = Substitute.For<IPessoasRepository>();
-        _pessoasService = new PessoasService(_pessoasRepository);
+        _transacoesRepository = Substitute.For<ITransacoesRepository>();
+        _pessoasService = new PessoasService(_pessoasRepository, _transacoesRepository);
     }
 
     [Fact]
@@ -104,6 +106,7 @@ public class PessoasServiceTests
 
         Assert.True(resultado);
         await _pessoasRepository.Received(1).DeletarAsync(5);
+        await _transacoesRepository.Received(1).InativarPorPessoaIdAsync(5);
     }
 
     [Fact]
@@ -115,5 +118,6 @@ public class PessoasServiceTests
 
         Assert.False(resultado);
         await _pessoasRepository.Received(1).DeletarAsync(7);
+        await _transacoesRepository.DidNotReceive().InativarPorPessoaIdAsync(Arg.Any<int>());
     }
 }

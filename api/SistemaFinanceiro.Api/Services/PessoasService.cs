@@ -8,10 +8,12 @@ namespace SistemaFinanceiro.Api.Services;
 public class PessoasService : IPessoasService
 {
     private readonly IPessoasRepository _pessoasRepository;
+    private readonly ITransacoesRepository _transacoesRepository;
 
-    public PessoasService(IPessoasRepository repository)
+    public PessoasService(IPessoasRepository repository, ITransacoesRepository transacoesRepository)
     {
         _pessoasRepository = repository;
+        _transacoesRepository = transacoesRepository;
     }
 
     public async Task<List<PessoaResponse>> ObterPessoasAsync()
@@ -78,6 +80,11 @@ public class PessoasService : IPessoasService
     public async Task<bool> DeletarPessoaAsync(int id)
     {
         var resultado = await _pessoasRepository.DeletarAsync(id);
+
+        if (resultado)
+        {
+            await _transacoesRepository.InativarPorPessoaIdAsync(id);
+        }
 
         return resultado;
     }

@@ -51,4 +51,16 @@ public class TransacoesRepository(ILogger<TransacoesRepository> logger, IConfigu
 
         return transacaoCriada;
     }
+
+    public async Task InativarPorPessoaIdAsync(int idPessoa)
+    {
+        const string sql = @"
+            UPDATE transacoes
+            SET ativo = false
+            WHERE id_pessoa = @IdPessoa
+              AND ativo = true;";
+
+        using IDbConnection connection = Connection;
+        await connection.ExecuteAsync(sql, new { IdPessoa = idPessoa });
+    }
 }
