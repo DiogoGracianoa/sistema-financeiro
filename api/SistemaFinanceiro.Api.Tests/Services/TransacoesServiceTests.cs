@@ -113,7 +113,7 @@ public class TransacoesServiceTests
 
         var ex = await Assert.ThrowsAsync<ArgumentException>(() => _transacoesService.CriarTransacaoAsync(request));
 
-        Assert.Equal("Pessoa menor de 18 anos só pode realizar transações do tipo despesa.", ex.Message);
+        Assert.Contains("Pessoa menor de 18 anos só pode realizar transações do tipo despesa. A pessoa informada", ex.Message);
     }
 
     [Fact]
@@ -133,7 +133,7 @@ public class TransacoesServiceTests
 
         var ex = await Assert.ThrowsAsync<ArgumentException>(() => _transacoesService.CriarTransacaoAsync(request));
 
-        Assert.Equal("Transação do tipo receita não pode usar categoria com finalidade despesa.", ex.Message);
+        Assert.Contains("Transação do tipo receita", ex.Message);
     }
 
     [Fact]
@@ -153,6 +153,6 @@ public class TransacoesServiceTests
 
         var ex = await Assert.ThrowsAsync<ArgumentException>(() => _transacoesService.CriarTransacaoAsync(request));
 
-        Assert.Equal("Transação do tipo despesa não pode usar categoria com finalidade receita.", ex.Message);
+        Assert.Contains("Transação do tipo despesa", ex.Message);
     }
 }

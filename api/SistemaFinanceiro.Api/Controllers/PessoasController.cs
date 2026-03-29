@@ -25,6 +25,7 @@ public class PessoasController : ControllerBase
     /// <returns>Lista de pessoas.</returns>
     [HttpGet]
     [ProducesResponseType(typeof(BaseResponse<List<PessoaResponse>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<BaseResponse<List<PessoaResponse>>>> ObterTodasPessoas()
     {
         var pessoas = await _pessoasService.ObterPessoasAsync();
@@ -46,6 +47,7 @@ public class PessoasController : ControllerBase
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(BaseResponse<PessoaResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<BaseResponse<PessoaResponse>>> CriarPessoa([FromBody] PessoaRequest pessoaRequest)
     {
         var pessoaCriada = await _pessoasService.CriarPessoaAsync(pessoaRequest);
@@ -68,6 +70,7 @@ public class PessoasController : ControllerBase
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(BaseResponse<PessoaResponse>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<BaseResponse<PessoaResponse>>> AtualizarPessoa(int id, [FromBody] PessoaRequest pessoaRequest)
     {
         var pessoaAtualizada = await _pessoasService.AtualizarPessoaAsync(id, pessoaRequest);
@@ -88,6 +91,7 @@ public class PessoasController : ControllerBase
     [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status404NotFound)]
+    [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult> DeletarPessoa(int id)
     {
         var sucesso = await _pessoasService.DeletarPessoaAsync(id);
