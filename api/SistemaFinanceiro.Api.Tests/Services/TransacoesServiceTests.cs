@@ -31,8 +31,14 @@ public class TransacoesServiceTests
     {
         _transacoesRepository.ObterTodasAtivasAsync().Returns(new List<TransacaoEntity>
         {
-            new() { Id = 1, Descricao = "Almoço", Valor = 35.50m, IdTipo = TipoTransacaoEnum.Despesa, IdCategoria = 10, DataCriacao = new DateTime(2025, 1, 10), Ativo = true },
-            new() { Id = 2, Descricao = "Salário", Valor = 5000m, IdTipo = TipoTransacaoEnum.Receita, IdCategoria = 20, DataCriacao = new DateTime(2025, 1, 15), Ativo = true }
+            new() { Id = 1, IdPessoa = 100, Descricao = "Almoço", Valor = 35.50m, IdTipo = TipoTransacaoEnum.Despesa, IdCategoria = 10, DataCriacao = new DateTime(2025, 1, 10), Ativo = true },
+            new() { Id = 2, IdPessoa = 200, Descricao = "Salário", Valor = 5000m, IdTipo = TipoTransacaoEnum.Receita, IdCategoria = 20, DataCriacao = new DateTime(2025, 1, 15), Ativo = true }
+        });
+
+        _pessoasRepository.ObterTodasAsync().Returns(new List<PessoaEntity>
+        {
+            new() { Id = 100, Nome = "João", Idade = 30, Ativo = true, DataCriacao = new DateTime(2025, 1, 1) },
+            new() { Id = 200, Nome = "Maria", Idade = 28, Ativo = true, DataCriacao = new DateTime(2025, 1, 1) }
         });
 
         var resultado = await _transacoesService.ObterTransacoesAsync();
@@ -43,9 +49,12 @@ public class TransacoesServiceTests
         Assert.Equal(35.50m, resultado[0].Valor);
         Assert.Equal(TipoTransacaoEnum.Despesa, resultado[0].IdTipo);
         Assert.Equal(10, resultado[0].IdCategoria);
+        Assert.Equal(100, resultado[0].Pessoa.Id);
+        Assert.Equal("João", resultado[0].Pessoa.Nome);
         Assert.Equal(new DateTime(2025, 1, 10), resultado[0].DataCriacao);
 
         await _transacoesRepository.Received(1).ObterTodasAtivasAsync();
+        await _pessoasRepository.Received(1).ObterTodasAsync();
     }
 
     [Fact]

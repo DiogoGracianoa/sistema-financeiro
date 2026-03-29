@@ -1,8 +1,9 @@
+import AlertBox from "@components/Alert/AlertBox";
 import Button from "@components/Button/Button";
 import Modal from "@components/Modal/Modal";
 import Table, { type TableColumn } from "@components/Table/Table";
 import { useDisclosure } from "@hooks/useDisclosure";
-import { PencilSimple, Plus, Trash, X } from "@phosphor-icons/react";
+import { PencilSimple, Plus, Trash } from "@phosphor-icons/react";
 import { useEffect, useMemo, useState } from "react";
 import CreateEditPessoa, { type PessoaFormValues } from "./CreateEditPessoa";
 import {
@@ -154,6 +155,13 @@ function ListPessoas() {
           Nova Pessoa
         </Button>
       </div>
+      {isError && showListError && (
+        <AlertBox
+          title="Erro ao carregar lista de pessoas."
+          message="Recarregue a página ou tente novamente mais tarde."
+          onClose={() => setShowListError(false)}
+        />
+      )}
       <div className={styles.tableWrapper}>
         <Table
           columns={columns}
@@ -163,20 +171,6 @@ function ListPessoas() {
           rowKey={(item) => item.id}
         />
       </div>
-      {isError && showListError && (
-        <div className={styles.errorBox} role="alert">
-          <button
-            type="button"
-            className={styles.closeErrorButton}
-            aria-label="Fechar alerta"
-            onClick={() => setShowListError(false)}
-          >
-            <X size={16} weight="bold" />
-          </button>
-          <strong>Erro ao carregar pessoas.</strong>
-          <span>{listError}</span>
-        </div>
-      )}
 
       <Modal
         isOpen={isFormOpen}
@@ -195,18 +189,11 @@ function ListPessoas() {
         width="md"
       >
         {formError && (
-          <div className={styles.modalError} role="alert">
-            <button
-              type="button"
-              className={styles.closeErrorButton}
-              aria-label="Fechar alerta"
-              onClick={() => setFormError(null)}
-            >
-              <X size={16} weight="bold" />
-            </button>
-            <strong>Erro ao salvar.</strong>
-            <span>{formError}</span>
-          </div>
+          <AlertBox
+            title="Erro ao salvar."
+            message="Tente novamente mais tarde."
+            onClose={() => setFormError(null)}
+          />
         )}
         <CreateEditPessoa
           mode={mode}
@@ -230,18 +217,11 @@ function ListPessoas() {
       >
         <div className={styles.deleteBody}>
           {deleteError && (
-            <div className={styles.modalError} role="alert">
-              <button
-                type="button"
-                className={styles.closeErrorButton}
-                aria-label="Fechar alerta"
-                onClick={() => setDeleteError(null)}
-              >
-                <X size={16} weight="bold" />
-              </button>
-              <strong>Erro ao deletar.</strong>
-              <span>{deleteError}</span>
-            </div>
+            <AlertBox
+              title="Erro ao deletar."
+              message="Tente novamente mais tarde."
+              onClose={() => setDeleteError(null)}
+            />
           )}
           <p className="helper">
             {selectedPessoa
