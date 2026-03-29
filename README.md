@@ -16,6 +16,7 @@ Repositório contendo os projetos do sistema financeiro, separados por responsab
 ├── api/ # Backend do sistema
 └── front/ # Interface do usuário
 ```
+
 ---
 
 # Liquibase - Sistema Financeiro
@@ -71,4 +72,43 @@ Documentação do liquibase: https://docs.liquibase.com/home.html
 
 # API - Sistema Financeiro
 
-# Frontend - Sistema Financeiro
+Guia para rodar a API localmente.
+
+## Pré-requisitos
+
+- .NET 9 SDK
+- Banco local ativo (suba primeiro o `docker-compose` em `liquibase`, usa Postgres na porta 54320)
+
+## Executar a API
+
+1. No diretório `api/SistemaFinanceiro.Api`, restaure dependências (opcional se já estiver em cache):
+
+```
+dotnet restore
+```
+
+2. Execute a API:
+
+```
+dotnet run --project SistemaFinanceiro.Api
+```
+
+3. Endpoints e documentação:
+
+- Base URL: http://localhost:5172
+- Documentação interativa (via Scalar): http://localhost:5172/scalar
+
+## Configuração
+
+- Connection string padrão (Postgres local) está em `api/SistemaFinanceiro.Api/appsettings.json` e aponta para `Host=localhost;Port=54320;Database=sistema_financeiro_local;Username=postgres;Password=postgres2026!`.
+  - Essa connection string é apenas para ambiente local e **não contém dados sensíveis de produção**. Por esse motivo, ela está presente no repositório, mas no cenário de produção, estes valores sensíveis são mantidos fora do git.
+
+- Para sobrepor via variável de ambiente, use `ConnectionStrings__DefaultConnection`.
+
+## Testes
+
+```
+dotnet test api/SistemaFinanceiro.Api.Tests/SistemaFinanceiro.Api.Tests.csproj
+```
+
+# > Frontend - Sistema Financeiro
