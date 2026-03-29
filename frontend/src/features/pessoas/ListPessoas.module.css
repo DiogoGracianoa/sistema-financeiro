@@ -1,0 +1,73 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.tableWrapper {
+  padding: 0px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  width: 36px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #fff;
+  cursor: pointer;
+  color: var(--navy-900);
+  transition: all 0.15s ease;
+}
+
+.iconButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05);
+  background: var(--gray-10);
+}
+
+.danger {
+  color: var(--danger-500);
+  border-color: rgba(198, 40, 40, 0.2);
+}
+
+.errorBox {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(198, 40, 40, 0.08);
+  color: var(--danger-500);
+  border: 1px solid rgba(198, 40, 40, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modalError {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: rgba(198, 40, 40, 0.08);
+  color: var(--danger-500);
+  border: 1px solid rgba(198, 40, 40, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.deleteBody {
+  padding: 4px 2px 24px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

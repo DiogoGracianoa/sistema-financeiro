@@ -28,4 +28,12 @@ TestResults/
 packages/
 api/nuget.config
 
+# Frontend
+frontend/node_modules
+frontend/dist
+dist
+vite.config.ts.timestamp-*
+.idea
+coverage
+
 
