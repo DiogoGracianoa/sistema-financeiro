@@ -1,5 +1,6 @@
 import ListCategorias from "@features/categorias/ListCategorias";
 import ListPessoas from "@features/pessoas/ListPessoas";
+import ListTransacoes from "@features/transacoes/ListTransacoes";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 function Placeholder({ title }: { title: string }) {
@@ -15,7 +16,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<ListPessoas />} />
       <Route path="/categorias" element={<ListCategorias />} />
-      <Route path="/transacoes" element={<Placeholder title="Transações" />} />
+      <Route path="/transacoes" element={<ListTransacoes />} />
       <Route
         path="/relatorio/pessoas"
         element={<Placeholder title="Relatório de Pessoas" />}
