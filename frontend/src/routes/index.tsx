@@ -1,5 +1,6 @@
 import ListCategorias from "@features/categorias/ListCategorias";
 import ListPessoas from "@features/pessoas/ListPessoas";
+import RelatorioPessoas from "@features/relatorios/RelatorioPessoas";
 import ListTransacoes from "@features/transacoes/ListTransacoes";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -17,10 +18,7 @@ function AppRoutes() {
       <Route path="/" element={<ListPessoas />} />
       <Route path="/categorias" element={<ListCategorias />} />
       <Route path="/transacoes" element={<ListTransacoes />} />
-      <Route
-        path="/relatorio/pessoas"
-        element={<Placeholder title="Relatório de Pessoas" />}
-      />
+      <Route path="/relatorio/pessoas" element={<RelatorioPessoas />} />
       <Route
         path="/relatorio/categorias"
         element={<Placeholder title="Relatório de Categorias" />}
