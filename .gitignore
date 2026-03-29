@@ -1,0 +1,31 @@
+﻿# Visual Studio
+/.vs
+.vs/
+*.user
+*.suo
+api/.vs
+.idea/
+.vscode/
+
+# Build
+api/SistemaFinanceiro.Api.Tests/bin
+api/SistemaFinanceiro.Api.Tests/obj
+api/SistemaFinanceiro.Api/bin
+api/SistemaFinanceiro.Api/obj
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test results
+TestResults/
+
+# NuGet
+*.nupkg
+packages/
+api/nuget.config
+
+
