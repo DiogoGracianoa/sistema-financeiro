@@ -2,8 +2,8 @@ import Button from "@components/Button/Button";
 import Modal from "@components/Modal/Modal";
 import Table, { type TableColumn } from "@components/Table/Table";
 import { useDisclosure } from "@hooks/useDisclosure";
-import { PencilSimple, Plus, Trash } from "@phosphor-icons/react";
-import { useMemo, useState } from "react";
+import { PencilSimple, Plus, Trash, X } from "@phosphor-icons/react";
+import { useEffect, useMemo, useState } from "react";
 import CreateEditPessoa, { type PessoaFormValues } from "./CreateEditPessoa";
 import {
   useCreatePessoa,
@@ -35,6 +35,18 @@ function ListPessoas() {
   const [mode, setMode] = useState<"create" | "edit">("create");
   const [formError, setFormError] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [listError, setListError] = useState<string | null>(null);
+  const [showListError, setShowListError] = useState(false);
+
+  useEffect(() => {
+    if (isError) {
+      setListError((error as Error)?.message ?? "Tente novamente mais tarde.");
+      setShowListError(true);
+    } else {
+      setListError(null);
+      setShowListError(false);
+    }
+  }, [isError, error]);
 
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
@@ -151,10 +163,18 @@ function ListPessoas() {
           rowKey={(item) => item.id}
         />
       </div>
-      {isError && (
-        <div className={styles.errorBox}>
+      {isError && showListError && (
+        <div className={styles.errorBox} role="alert">
+          <button
+            type="button"
+            className={styles.closeErrorButton}
+            aria-label="Fechar alerta"
+            onClick={() => setShowListError(false)}
+          >
+            <X size={16} weight="bold" />
+          </button>
           <strong>Erro ao carregar pessoas.</strong>
-          <span>{"Tente novamente mais tarde."}</span>
+          <span>{listError}</span>
         </div>
       )}
 
@@ -176,6 +196,14 @@ function ListPessoas() {
       >
         {formError && (
           <div className={styles.modalError} role="alert">
+            <button
+              type="button"
+              className={styles.closeErrorButton}
+              aria-label="Fechar alerta"
+              onClick={() => setFormError(null)}
+            >
+              <X size={16} weight="bold" />
+            </button>
             <strong>Erro ao salvar.</strong>
             <span>{formError}</span>
           </div>
@@ -203,6 +231,14 @@ function ListPessoas() {
         <div className={styles.deleteBody}>
           {deleteError && (
             <div className={styles.modalError} role="alert">
+              <button
+                type="button"
+                className={styles.closeErrorButton}
+                aria-label="Fechar alerta"
+                onClick={() => setDeleteError(null)}
+              >
+                <X size={16} weight="bold" />
+              </button>
               <strong>Erro ao deletar.</strong>
               <span>{deleteError}</span>
             </div>

@@ -48,6 +48,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  position: relative;
 }
 
 .modalError {
@@ -60,6 +61,24 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  position: relative;
+}
+
+.closeErrorButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.closeErrorButton:hover {
+  background: rgba(198, 40, 40, 0.12);
 }
 
 .deleteBody {
