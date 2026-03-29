@@ -111,4 +111,8 @@ dotnet run --project SistemaFinanceiro.Api
 dotnet test api/SistemaFinanceiro.Api.Tests/SistemaFinanceiro.Api.Tests.csproj
 ```
 
+## Integração Contínua
+
+- Pipeline de testes automatizados: `.github/workflows/api-tests.yml` (executa `dotnet test` a cada push/PR que altera `api/**`).
+
 # > Frontend - Sistema Financeiro
