@@ -39,48 +39,6 @@
   border-color: rgba(198, 40, 40, 0.2);
 }
 
-.errorBox {
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  background: rgba(198, 40, 40, 0.08);
-  color: var(--danger-500);
-  border: 1px solid rgba(198, 40, 40, 0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  position: relative;
-}
-
-.modalError {
-  margin: 0 0 12px;
-  padding: 10px 12px;
-  border-radius: var(--radius-sm);
-  background: rgba(198, 40, 40, 0.08);
-  color: var(--danger-500);
-  border: 1px solid rgba(198, 40, 40, 0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  position: relative;
-}
-
-.closeErrorButton {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  border: none;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 6px;
-  transition: background 0.15s ease;
-}
-
-.closeErrorButton:hover {
-  background: rgba(198, 40, 40, 0.12);
-}
-
 .deleteBody {
   padding: 4px 2px 24px;
 }

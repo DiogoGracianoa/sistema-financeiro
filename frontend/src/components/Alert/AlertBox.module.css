@@ -1,0 +1,40 @@
+.alert {
+  position: relative;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid transparent;
+  background: #fff;
+  color: var(--navy-900);
+}
+
+.danger {
+  background: rgba(198, 40, 40, 0.08);
+  color: var(--danger-500);
+  border-color: rgba(198, 40, 40, 0.2);
+}
+
+.info {
+  background: rgba(26, 39, 80, 0.08);
+  color: var(--navy-900);
+  border-color: rgba(26, 39, 80, 0.18);
+}
+
+.closeButton {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
