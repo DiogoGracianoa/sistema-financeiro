@@ -26,15 +26,27 @@ public class TransacoesService : ITransacoesService
     public async Task<List<TransacaoResponse>> ObterTransacoesAsync()
     {
         var transacoes = await _transacoesRepository.ObterTodasAtivasAsync();
+        var pessoas = await _pessoasRepository.ObterTodasAsync();
+        var pessoasPorId = pessoas.ToDictionary(p => p.Id);
 
-        return transacoes.Select(t => new TransacaoResponse
+        return transacoes.Select(t =>
         {
-            Id = t.Id,
-            Descricao = t.Descricao,
-            Valor = t.Valor,
-            IdTipo = t.IdTipo,
-            IdCategoria = t.IdCategoria,
-            DataCriacao = t.DataCriacao
+            pessoasPorId.TryGetValue(t.IdPessoa, out var pessoa);
+
+            return new TransacaoResponse
+            {
+                Id = t.Id,
+                Descricao = t.Descricao,
+                Valor = t.Valor,
+                IdTipo = t.IdTipo,
+                IdCategoria = t.IdCategoria,
+                Pessoa = new TransacaoPessoaResponse
+                {
+                    Id = pessoa?.Id ?? t.IdPessoa,
+                    Nome = pessoa?.Nome ?? string.Empty
+                },
+                DataCriacao = t.DataCriacao
+            };
         }).ToList();
     }
 

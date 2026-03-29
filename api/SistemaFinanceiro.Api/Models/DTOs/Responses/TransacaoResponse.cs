@@ -9,5 +9,6 @@ public class TransacaoResponse
     public decimal Valor { get; set; }
     public TipoTransacaoEnum IdTipo { get; set; }
     public int IdCategoria { get; set; }
+    public TransacaoPessoaResponse Pessoa { get; set; } = new();
     public DateTime DataCriacao { get; set; }
 }
