@@ -6,4 +6,5 @@ public interface ITransacoesRepository
 {
     Task<List<TransacaoEntity>> ObterTodasAtivasAsync();
     Task<TransacaoEntity> AdicionarAsync(TransacaoEntity transacao);
+    Task InativarPorPessoaIdAsync(int idPessoa);
 }
