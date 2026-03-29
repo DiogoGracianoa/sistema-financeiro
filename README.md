@@ -10,14 +10,16 @@ Repositório contendo os projetos do sistema financeiro, separados por responsab
 
 ## Estrutura do Repositório
 
+```
 .
 ├── liquibase/ # Controle de versionamento do banco
 ├── api/ # Backend do sistema
 └── front/ # Interface do usuário
+```
 
 ---
 
-# > Liquibase - Sistema Financeiro
+# Liquibase - Sistema Financeiro
 
 Guia para subir o banco local e aplicar os changeSets do sistema financeiro.
 
@@ -68,7 +70,7 @@ Documentação do liquibase: https://docs.liquibase.com/home.html
 
 ---
 
-# > API - Sistema Financeiro
+# API - Sistema Financeiro
 
 Guia para rodar a API localmente.
 
