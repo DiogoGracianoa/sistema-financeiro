@@ -21,6 +21,21 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
+        catch (ArgumentException ex)
+        {
+            _logger.LogWarning(ex, "Erro de validação: {Message}", ex.Message);
+
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.ContentType = "application/json";
+
+            var response = new BaseResponse<string>
+            {
+                Sucesso = false,
+                Mensagem = ex.Message
+            };
+
+            await context.Response.WriteAsJsonAsync(response);
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "Erro não tratado: {Message}", ex.Message);

@@ -14,10 +14,12 @@ public static class ServiceRegistrationExtensions
         // Services
         services.AddScoped<IPessoasService, PessoasService>();
         services.AddScoped<ICategoriasService, CategoriasService>();
+        services.AddScoped<ITransacoesService, TransacoesService>();
 
         // Repositories
         services.AddScoped<IPessoasRepository, PessoasRepository>();
         services.AddScoped<ICategoriasRepository, CategoriasRepository>();
+        services.AddScoped<ITransacoesRepository, TransacoesRepository>();
 
         return services;
     }
