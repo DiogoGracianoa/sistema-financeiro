@@ -1,4 +1,5 @@
 import AlertBox from "@components/Alert/AlertBox";
+import Badge from "@components/Badge/Badge";
 import Button from "@components/Button/Button";
 import Modal from "@components/Modal/Modal";
 import Table, { type TableColumn } from "@components/Table/Table";
@@ -68,15 +69,12 @@ function ListTransacoes() {
         label: "Tipo",
         width: "15%",
         render: (item) => (
-          <span
-            className={`${styles.badge} ${
-              item.idTipo === TipoTransacao.Despesa
-                ? styles.despesa
-                : styles.receita
-            }`}
-          >
-            {item.idTipo === TipoTransacao.Despesa ? "Despesa" : "Receita"}
-          </span>
+          <Badge
+            label={
+              item.idTipo === TipoTransacao.Despesa ? "Despesa" : "Receita"
+            }
+            tone={item.idTipo === TipoTransacao.Despesa ? "danger" : "success"}
+          />
         ),
       },
       {

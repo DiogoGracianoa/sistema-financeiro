@@ -1,10 +1,11 @@
 import AlertBox from "@components/Alert/AlertBox";
+import Badge from "@components/Badge/Badge";
 import Table, { type TableColumn } from "@components/Table/Table";
-import { usePessoas } from "@features/pessoas/hooks/usePessoas";
+import { FinalidadeCategoria } from "@features/categorias/types";
 import { useEffect, useMemo, useState } from "react";
-import { useRelatorioTotaisPorPessoa } from "./hooks/useRelatorios";
-import styles from "./RelatorioPessoas.module.css";
-import type { RelatorioPessoaItem, RelatorioTotalGeral } from "./types";
+import { useRelatorioTotaisPorCategoria } from "./hooks/useRelatorios";
+import styles from "./RelatorioCategorias.module.css";
+import type { RelatorioCategoriaItem, RelatorioTotalGeral } from "./types";
 
 const currency = new Intl.NumberFormat("pt-BR", {
   style: "currency",
@@ -12,19 +13,23 @@ const currency = new Intl.NumberFormat("pt-BR", {
   minimumFractionDigits: 2,
 });
 
-type LinhaRelatorio = RelatorioPessoaItem & {
-  idade?: number;
+type LinhaRelatorio = RelatorioCategoriaItem & {
   isTotal?: boolean;
 };
 
-function RelatorioPessoas() {
+const finalidadeLabel = {
+  [FinalidadeCategoria.Despesa]: "Despesa",
+  [FinalidadeCategoria.Receita]: "Receita",
+  [FinalidadeCategoria.Ambas]: "Ambas",
+};
+
+function RelatorioCategorias() {
   const {
     data,
     isLoading,
     isError,
     error: relatorioError,
-  } = useRelatorioTotaisPorPessoa();
-  const { data: pessoas = [] } = usePessoas();
+  } = useRelatorioTotaisPorCategoria();
 
   const [listError, setListError] = useState<string | null>(null);
   const [showListError, setShowListError] = useState(false);
@@ -41,22 +46,15 @@ function RelatorioPessoas() {
     }
   }, [isError, relatorioError]);
 
-  const pessoasIdadeMap = useMemo(
-    () => new Map(pessoas.map((pessoa) => [pessoa.id, pessoa.idade])),
-    [pessoas],
-  );
-
   const tableData: LinhaRelatorio[] = useMemo(() => {
-    const itens = data?.pessoas ?? [];
-    const linhas = itens.map((item) => ({
-      ...item,
-      idade: pessoasIdadeMap.get(item.id),
-    }));
+    const itens = data?.categorias ?? [];
+    const linhas = [...itens];
 
     if (data?.totalGeral) {
       linhas.push({
         id: -1,
-        nome: "TOTAL GERAL",
+        descricao: "TOTAL GERAL",
+        idFinalidade: 0,
         receitas: data.totalGeral.receitas,
         despesas: data.totalGeral.despesas,
         saldo: data.totalGeral.saldo,
@@ -65,7 +63,7 @@ function RelatorioPessoas() {
     }
 
     return linhas;
-  }, [data, pessoasIdadeMap]);
+  }, [data]);
 
   const totalGeral: RelatorioTotalGeral = data?.totalGeral ?? {
     receitas: 0,
@@ -76,21 +74,34 @@ function RelatorioPessoas() {
   const columns: Array<TableColumn<LinhaRelatorio>> = useMemo(
     () => [
       {
-        key: "nome",
-        label: "Nome",
+        key: "descricao",
+        label: "Descrição",
         width: "30%",
         render: (item) => (
           <span className={item.isTotal ? styles.totalsRow : undefined}>
-            {item.nome}
+            {item.descricao}
           </span>
         ),
       },
       {
-        key: "idade",
-        label: "Idade",
-        width: "10%",
+        key: "idFinalidade",
+        label: "Finalidade",
+        width: "15%",
         render: (item) =>
-          item.idade !== undefined ? `${item.idade} anos` : "",
+          item.isTotal ? null : (
+            <Badge
+              label={
+                finalidadeLabel[item.idFinalidade as FinalidadeCategoria] ?? "-"
+              }
+              tone={
+                item.idFinalidade === FinalidadeCategoria.Despesa
+                  ? "danger"
+                  : item.idFinalidade === FinalidadeCategoria.Receita
+                    ? "success"
+                    : "neutral"
+              }
+            />
+          ),
       },
       {
         key: "receitas",
@@ -123,7 +134,7 @@ function RelatorioPessoas() {
       {
         key: "saldo",
         label: "Saldo",
-        width: "20%",
+        width: "15%",
         render: (item) => (
           <span
             className={
@@ -142,9 +153,9 @@ function RelatorioPessoas() {
     <div className={styles.page}>
       <div className="section-title">
         <div>
-          <h1>Relatório de Totais por Pessoa</h1>
+          <h1>Relatório de Totais por Categoria</h1>
           <p className="section-subtitle">
-            Visualize o total de receitas, despesas e saldo de cada pessoa
+            Visualize o total de receitas, despesas e saldo de cada categoria
             cadastrada.
           </p>
         </div>
@@ -166,7 +177,7 @@ function RelatorioPessoas() {
             columns={columns}
             data={tableData}
             loading={isLoading}
-            emptyMessage="Nenhuma pessoa cadastrada ainda."
+            emptyMessage="Nenhuma categoria cadastrada ainda."
             rowKey={(item) => `${item.id}-${item.isTotal ? "total" : "row"}`}
           />
         </div>
@@ -202,4 +213,4 @@ function RelatorioPessoas() {
   );
 }
 
-export default RelatorioPessoas;
+export default RelatorioCategorias;
