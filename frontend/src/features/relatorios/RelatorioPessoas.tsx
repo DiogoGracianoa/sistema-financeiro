@@ -1,4 +1,5 @@
 import AlertBox from "@components/Alert/AlertBox";
+import Amount from "@components/Amount/Amount";
 import Table, { type TableColumn } from "@components/Table/Table";
 import { usePessoas } from "@features/pessoas/hooks/usePessoas";
 import { formatCurrencyBRL } from "@utils/format";
@@ -91,43 +92,19 @@ function RelatorioPessoas() {
         key: "receitas",
         label: "Receitas",
         width: "20%",
-        render: (item) => (
-          <span
-            className={
-              item.receitas >= 0 ? styles.amountPositive : styles.amountNegative
-            }
-          >
-            {formatCurrencyBRL(item.receitas)}
-          </span>
-        ),
+        render: (item) => <Amount value={item.receitas} />,
       },
       {
         key: "despesas",
         label: "Despesas",
         width: "20%",
-        render: (item) => (
-          <span
-            className={
-              item.despesas >= 0 ? styles.amountNegative : styles.amountPositive
-            }
-          >
-            {formatCurrencyBRL(item.despesas)}
-          </span>
-        ),
+        render: (item) => <Amount value={item.despesas} tone="negative" />,
       },
       {
         key: "saldo",
         label: "Saldo",
         width: "20%",
-        render: (item) => (
-          <span
-            className={
-              item.saldo >= 0 ? styles.amountPositive : styles.amountNegative
-            }
-          >
-            {formatCurrencyBRL(item.saldo)}
-          </span>
-        ),
+        render: (item) => <Amount value={item.saldo} />,
       },
     ],
     [],

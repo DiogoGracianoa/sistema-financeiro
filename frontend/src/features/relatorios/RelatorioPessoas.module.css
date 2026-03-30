@@ -12,16 +12,6 @@
   font-weight: 700;
 }
 
-.amountPositive {
-  color: var(--success-500);
-  font-weight: 700;
-}
-
-.amountNegative {
-  color: var(--danger-500);
-  font-weight: 700;
-}
-
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

@@ -1,0 +1,11 @@
+.value {
+  font-weight: 700;
+}
+
+.positive {
+  color: var(--success-500);
+}
+
+.negative {
+  color: var(--danger-500);
+}
