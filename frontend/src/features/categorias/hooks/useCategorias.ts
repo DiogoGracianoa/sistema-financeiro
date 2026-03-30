@@ -1,6 +1,7 @@
 import { createCategoria, getCategorias } from "@api/categorias";
 import type { CategoriaPayload } from "@features/categorias/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { relatorioKeys } from "../../relatorios/hooks/useRelatorios";
 
 const categoriasKeys = {
   all: ["categorias"] as const,
@@ -20,6 +21,7 @@ export function useCreateCategoria() {
     mutationFn: (payload: CategoriaPayload) => createCategoria(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: categoriasKeys.all });
+      queryClient.invalidateQueries({ queryKey: relatorioKeys.categorias });
     },
   });
 }

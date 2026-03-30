@@ -4,19 +4,21 @@ import {
   getRelatorioTotaisPorPessoa,
 } from "../../../api/relatorios";
 
-const RELATORIO_PESSOAS_KEY = ["relatorio-totais-por-pessoa"];
-const RELATORIO_CATEGORIAS_KEY = ["relatorio-totais-por-categoria"];
+export const relatorioKeys = {
+  pessoas: ["relatorio-totais-por-pessoa"] as const,
+  categorias: ["relatorio-totais-por-categoria"] as const,
+};
 
 export function useRelatorioTotaisPorPessoa() {
   return useQuery({
-    queryKey: RELATORIO_PESSOAS_KEY,
+    queryKey: relatorioKeys.pessoas,
     queryFn: getRelatorioTotaisPorPessoa,
   });
 }
 
 export function useRelatorioTotaisPorCategoria() {
   return useQuery({
-    queryKey: RELATORIO_CATEGORIAS_KEY,
+    queryKey: relatorioKeys.categorias,
     queryFn: getRelatorioTotaisPorCategoria,
   });
 }

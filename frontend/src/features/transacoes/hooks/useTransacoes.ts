@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createTransacao, getTransacoes } from "../../../api/transacoes";
+import { relatorioKeys } from "../../relatorios/hooks/useRelatorios";
 import { TransacaoPayload } from "../types";
 
 const TRANSACOES_QUERY_KEY = ["transacoes"];
@@ -18,6 +19,8 @@ export const useCreateTransacao = () => {
     mutationFn: (payload: TransacaoPayload) => createTransacao(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: TRANSACOES_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: relatorioKeys.pessoas });
+      queryClient.invalidateQueries({ queryKey: relatorioKeys.categorias });
     },
   });
 };

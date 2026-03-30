@@ -1,10 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createPessoa,
   deletePessoa,
   getPessoas,
   updatePessoa,
 } from "@api/pessoas";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { relatorioKeys } from "../../relatorios/hooks/useRelatorios";
 import type { PessoaPayload } from "../types";
 
 const pessoasKeys = {
@@ -26,6 +27,7 @@ export function useCreatePessoa() {
     mutationFn: (payload: PessoaPayload) => createPessoa(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: pessoasKeys.all });
+      queryClient.invalidateQueries({ queryKey: relatorioKeys.pessoas });
     },
   });
 }
