@@ -155,17 +155,17 @@ curl -X POST http://localhost:5172/api/v1/transacoes \
 
 - Cadastro e listagem de pessoas (CRUD com delete lógico)
   - Interface:
-    ![Tela de cadastro de pessoas](docs\images\tela-pessoas.png)
+    ![Tela de cadastro de pessoas](docs/images/tela-pessoas.png)
 - Cadastro e listagem de categorias
   - Interface:
-    ![Tela de categorias](docs\images\tela-categorias.png)
+    ![Tela de categorias](docs/images/tela-categorias.png)
 - Registro e listagem de transações (receitas e despesas)
   - Interface:
-    ![Tela de transações](docs\images\tela-transacoes.png)
+    ![Tela de transações](docs/images/tela-transacoes.png)
 - Relatórios consolidados por pessoa e por categoria
   - Interface:
-    ![Tela de relatório por pessoa](docs\images\tela-relatorios-pessoa.png)
-    ![Tela de relatório por categorias](docs\images\tela-relatorios-categorias.png)
+    ![Tela de relatório por pessoa](docs/images/tela-relatorios-pessoa.png)
+    ![Tela de relatório por categorias](docs/images/tela-relatorios-categorias.png)
 - UI com navegação SPA (pessoas, categorias, transações, relatórios) e TanStack Query para cache de dados
 
 ## Próximos passos
