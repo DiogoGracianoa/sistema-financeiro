@@ -1,4 +1,5 @@
 import AlertBox from "@components/Alert/AlertBox";
+import Badge from "@components/Badge/Badge";
 import Button from "@components/Button/Button";
 import Modal from "@components/Modal/Modal";
 import Table, { type TableColumn } from "@components/Table/Table";
@@ -9,26 +10,6 @@ import CreateCategoria, { type CategoriaFormValues } from "./CreateCategoria";
 import { useCategorias, useCreateCategoria } from "./hooks/useCategorias";
 import styles from "./ListCategorias.module.css";
 import { FinalidadeCategoria, type Categoria } from "./types";
-
-type BadgeConfig = {
-  label: string;
-  className: string;
-};
-
-const finalidadeBadges: Record<FinalidadeCategoria, BadgeConfig> = {
-  [FinalidadeCategoria.Despesa]: {
-    label: "Despesa",
-    className: "badgeDespesa",
-  },
-  [FinalidadeCategoria.Receita]: {
-    label: "Receita",
-    className: "badgeReceita",
-  },
-  [FinalidadeCategoria.Ambas]: {
-    label: "Ambas",
-    className: "badgeAmbas",
-  },
-};
 
 function ListCategorias() {
   const { data = [], isLoading, isError, error } = useCategorias();
@@ -49,15 +30,13 @@ function ListCategorias() {
         width: "30%",
         align: "center",
         render: (categoria) => {
-          const badge = finalidadeBadges[categoria.idFinalidade];
-          return (
-            <span
-              className={`${styles.badge} ${styles[badge.className]}`}
-              aria-label={`Finalidade ${badge.label}`}
-            >
-              {badge.label}
-            </span>
-          );
+          if (categoria.idFinalidade === FinalidadeCategoria.Despesa) {
+            return <Badge label="Despesa" tone="danger" />;
+          }
+          if (categoria.idFinalidade === FinalidadeCategoria.Receita) {
+            return <Badge label="Receita" tone="success" />;
+          }
+          return <Badge label="Ambas" tone="neutral" />;
         },
       },
     ],
