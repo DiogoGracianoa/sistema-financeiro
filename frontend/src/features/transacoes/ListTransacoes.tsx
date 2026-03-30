@@ -5,6 +5,7 @@ import Modal from "@components/Modal/Modal";
 import Table, { type TableColumn } from "@components/Table/Table";
 import { useDisclosure } from "@hooks/useDisclosure";
 import { Plus } from "@phosphor-icons/react";
+import { formatCurrencyBRL } from "@utils/format";
 import { useEffect, useMemo, useState } from "react";
 import { useCategorias } from "../categorias/hooks/useCategorias";
 import { usePessoas } from "../pessoas/hooks/usePessoas";
@@ -12,13 +13,6 @@ import CreateTransacao, { type TransacaoFormValues } from "./CreateTransacao";
 import { useCreateTransacao, useTransacoes } from "./hooks/useTransacoes";
 import styles from "./ListTransacoes.module.css";
 import { TipoTransacao, type Transacao } from "./types";
-
-const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-    minimumFractionDigits: 2,
-  }).format(value);
 
 function ListTransacoes() {
   const {
@@ -62,7 +56,7 @@ function ListTransacoes() {
         key: "valor",
         label: "Valor",
         width: "20%",
-        render: (item) => formatCurrency(item.valor),
+        render: (item) => formatCurrencyBRL(item.valor),
       },
       {
         key: "idTipo",

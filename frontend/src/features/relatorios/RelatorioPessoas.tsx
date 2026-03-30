@@ -1,16 +1,11 @@
 import AlertBox from "@components/Alert/AlertBox";
 import Table, { type TableColumn } from "@components/Table/Table";
 import { usePessoas } from "@features/pessoas/hooks/usePessoas";
+import { formatCurrencyBRL } from "@utils/format";
 import { useEffect, useMemo, useState } from "react";
 import { useRelatorioTotaisPorPessoa } from "./hooks/useRelatorios";
 import styles from "./RelatorioPessoas.module.css";
 import type { RelatorioPessoaItem, RelatorioTotalGeral } from "./types";
-
-const currency = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-  minimumFractionDigits: 2,
-});
 
 type LinhaRelatorio = RelatorioPessoaItem & {
   idade?: number;
@@ -102,7 +97,7 @@ function RelatorioPessoas() {
               item.receitas >= 0 ? styles.amountPositive : styles.amountNegative
             }
           >
-            {currency.format(item.receitas)}
+            {formatCurrencyBRL(item.receitas)}
           </span>
         ),
       },
@@ -116,7 +111,7 @@ function RelatorioPessoas() {
               item.despesas >= 0 ? styles.amountNegative : styles.amountPositive
             }
           >
-            {currency.format(item.despesas)}
+            {formatCurrencyBRL(item.despesas)}
           </span>
         ),
       },
@@ -130,7 +125,7 @@ function RelatorioPessoas() {
               item.saldo >= 0 ? styles.amountPositive : styles.amountNegative
             }
           >
-            {currency.format(item.saldo)}
+            {formatCurrencyBRL(item.saldo)}
           </span>
         ),
       },
@@ -176,14 +171,14 @@ function RelatorioPessoas() {
         <div className={styles.statCard}>
           <span className={styles.statTitle}>Total de Receitas</span>
           <span className={`${styles.statValue} ${styles.positive}`}>
-            {currency.format(totalGeral.receitas)}
+            {formatCurrencyBRL(totalGeral.receitas)}
           </span>
         </div>
 
         <div className={styles.statCard}>
           <span className={styles.statTitle}>Total de Despesas</span>
           <span className={`${styles.statValue} ${styles.negative}`}>
-            {currency.format(totalGeral.despesas)}
+            {formatCurrencyBRL(totalGeral.despesas)}
           </span>
         </div>
 
@@ -194,7 +189,7 @@ function RelatorioPessoas() {
               totalGeral.saldo >= 0 ? styles.positive : styles.negative
             }`}
           >
-            {currency.format(totalGeral.saldo)}
+            {formatCurrencyBRL(totalGeral.saldo)}
           </span>
         </div>
       </div>
